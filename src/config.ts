@@ -248,7 +248,7 @@ export const SLIPPAGE_MODEL_S3_FILE_VALID_INTERVAL_MS: number = ONE_HOUR_MS * 2;
 export const SLIPPAGE_MODEL_REFRESH_INTERVAL_MS: number = ONE_MINUTE_MS * 1;
 
 export const ORDER_WATCHER_URL = _.isEmpty(process.env.ORDER_WATCHER_URL)
-    ? 'http://127.0.0.1:8080'
+    ? 'http://127.0.0.1:8008'
     : assertEnvVarType('ORDER_WATCHER_URL', process.env.ORDER_WATCHER_URL, EnvVarType.Url);
 
 export const ORDER_WATCHER_KAFKA_TOPIC = _.isEmpty(process.env.ORDER_WATCHER_KAFKA_TOPIC)
