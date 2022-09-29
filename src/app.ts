@@ -97,6 +97,9 @@ export async function getContractAddressesForNetworkOrThrowAsync(
     if (contractAddresses_) {
         return contractAddresses_;
     }
+    // @note we need to deploy the contract on amaterasu chain
+    // @todo suport amaterasu chain
+    // next line is derived from @0x/contract-addresses package
     let contractAddresses = getContractAddressesForChainOrThrow(chainId.toString() as any);
     // In a testnet where the environment does not support overrides
     // so we deploy the latest sampler
