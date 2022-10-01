@@ -24,7 +24,7 @@ import {
     SLIPPAGE_MODEL_S3_API_VERSION,
     WEBSOCKET_ORDER_UPDATES_PATH,
 } from './config';
-import { RFQ_DYNAMIC_BLACKLIST_TTL, RFQ_FIRM_QUOTE_CACHE_EXPIRY } from './constants';
+import { NULL_ADDRESS, RFQ_DYNAMIC_BLACKLIST_TTL, RFQ_FIRM_QUOTE_CACHE_EXPIRY } from './constants';
 import { getDBConnectionAsync } from './db_connection';
 import { MakerBalanceChainCacheEntity } from './entities/MakerBalanceChainCacheEntity';
 import { logger } from './logger';
@@ -100,13 +100,18 @@ export async function getContractAddressesForNetworkOrThrowAsync(
     // @note we need to deploy the contract on amaterasu chain
     // @todo suport amaterasu chain
     // next line is derived from @0x/contract-addresses package
-    const EXCHANGE_PROXY_ADDRESS = process.env.EXCHANGE_PROXY_ADDRESS;
-    if (!EXCHANGE_PROXY_ADDRESS) {
-        throw Error(`EXCHANGE_PROXY_ADDRESS is undefined`);
+    const AMATERASU_CHAIN_ID = process.env.AMATERASU_CHAIN_ID
+    const EXCHANGE_PROXY_ADDRESS = process.env.EXCHANGE_PROXY_ADDRESS ?? NULL_ADDRESS;
+    if (EXCHANGE_PROXY_ADDRESS === NULL_ADDRESS) {
+        logger.warn(`Exchange Proxy address is not set, using ${NULL_ADDRESS}`);
+    }
+    if (!AMATERASU_CHAIN_ID) {
+        logger.info(`contractAddresses are set to zero address`);
+        throw Error(`AMATERASU_CHAIN_ID is undefined`);
     }
     let contractAddresses: ContractAddresses
     // chainId
-    if ((chainId as any) == 100337) {
+    if ((chainId as any) == AMATERASU_CHAIN_ID) {
         contractAddresses = {
             "zrxToken": "0x0000000000000000000000000000000000000000",
             "etherToken": "0x0000000000000000000000000000000000000000",
@@ -117,7 +122,7 @@ export async function getContractAddressesForNetworkOrThrowAsync(
             "erc20BridgeProxy": "0x0000000000000000000000000000000000000000",
             "erc20BridgeSampler": "0x0000000000000000000000000000000000000000",
             "exchangeProxyGovernor": "0x0000000000000000000000000000000000000000",
-            "exchangeProxy": EXCHANGE_PROXY_ADDRESS,
+            "exchangeProxy": "0x0000000000000000000000000000000000000000",
             "exchangeProxyTransformerDeployer": "0x0000000000000000000000000000000000000000",
             "exchangeProxyFlashWallet": "0x0000000000000000000000000000000000000000",
             "exchangeProxyLiquidityProviderSandbox": "0x0000000000000000000000000000000000000000",

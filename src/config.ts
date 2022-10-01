@@ -478,8 +478,9 @@ const EXCLUDED_SOURCES = (() => {
         case ChainId.ArbitrumRinkeby:
         case ChainId.Arbitrum:
             return [ERC20BridgeSource.MultiBridge, ERC20BridgeSource.Native];
-        default:
-            throw new Error(`Excluded sources not specified for ${CHAIN_ID}`);
+        /// XXX: comment out
+        // default:
+        //     throw new Error(`Excluded sources not specified for ${CHAIN_ID}`);
     }
 })();
 

@@ -86,19 +86,21 @@ export async function runHttpServiceAsync(
     // OrderBook http service
     app.use(ORDERBOOK_PATH, createOrderBookRouter(dependencies.orderBookService));
 
+    // NOTE: XXX remove
     // metatxn http service
-    if (dependencies.metaTransactionService) {
-        app.use(META_TRANSACTION_PATH, createMetaTransactionRouter(dependencies.metaTransactionService));
-    } else {
-        logger.error(`API running without meta transactions service`);
-    }
-
+    // if (dependencies.metaTransactionService) {
+        //     app.use(META_TRANSACTION_PATH, createMetaTransactionRouter(dependencies.metaTransactionService));
+        // } else {
+            //     logger.error(`API running without meta transactions service`);
+            // }
+            
+    // NOTE: XXX remove
     // swap/quote http service
-    if (dependencies.swapService) {
-        app.use(SWAP_PATH, createSwapRouter(dependencies.swapService));
-    } else {
-        logger.error(`API running without swap service`);
-    }
+    // if (dependencies.swapService) {
+    //     app.use(SWAP_PATH, createSwapRouter(dependencies.swapService));
+    // } else {
+    //     logger.error(`API running without swap service`);
+    // }
 
     app.use(errorHandler);
 
