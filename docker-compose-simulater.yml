@@ -1,0 +1,45 @@
+# command:
+# docker-compose -f docker-compose-simulater.yml up
+version: '3'
+services:
+    besu:
+        image: 'hyperledger/besu:latest'
+        ports:
+            - '8545:8545'
+        volumes:
+            - ./network-config:/var/lib/besu/network-config
+        environment:
+            NETWORK_ID: 1337
+            CHAIN_ID: 1337
+            # --rpc-http-enabled
+            BESU_RPC_HTTP_ENABLED: 'true'
+            # --miner-enabled
+            BESU_MINER_ENABLED: 'true'
+
+            #### Dev config
+            BESU_MIN_GAS_PRICE: 0
+            # --miner-coinbase=fe3b557e8fb62b89f4916b721be55ceb828dbd73
+            BESU_MINER_COINBASE: fe3b557e8fb62b89f4916b721be55ceb828dbd73
+            # genesis.json and node key files
+            BESU_GENESIS_FILE: '/var/lib/besu/network-config/dev/genesis.json'
+            BESU_NODE_PRIVATE_KEY_FILE: '/var/lib/besu/network-config/dev/nodeKey'
+
+            #### Default Dev network
+            # BESU_NETWORK: dev
+
+            #### Clique config
+            # genesis.json and node key files
+            # BESU_GENESIS_FILE: '/var/lib/besu/network-config/clique/genesis.json'
+            # BESU_NODE_PRIVATE_KEY_FILE: '/var/lib/besu/network-config/clique/nodeKey'
+    postgres:
+        image: postgres:9.6
+        environment:
+            - POSTGRES_USER=api
+            - POSTGRES_PASSWORD=api
+            - POSTGRES_DB=api
+        # persist the postgres data to disk so we don't lose it
+        # on rebuilds.
+        volumes:
+            - ./postgres:/var/lib/postgresql/data
+        ports:
+            - '5432:5432'
