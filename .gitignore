@@ -97,3 +97,7 @@ scripts
 # Foundry
 foundry-artifacts
 foundry-cache
+
+# besu docker volume
+besu
+!besu/network-config/
