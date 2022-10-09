@@ -3,7 +3,7 @@
 version: '3'
 services:
     # use anvil
-
+    # anvil --chain-id=1337 --hardfork=berlin --gas-price=0
     postgres:
         image: postgres:9.6
         environment:

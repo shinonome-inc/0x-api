@@ -30,9 +30,9 @@ services:
 
             #### Clique config
             # genesis.json and node key files
-            BESU_RPC_HTTP_API: ETH,CLIQUE
-            BESU_GENESIS_FILE: /var/lib/besu/network-config/clique/genesis.json
-            BESU_NODE_PRIVATE_KEY_FILE: /var/lib/besu/network-config/clique/nodeKey
+            # BESU_RPC_HTTP_API: ETH,CLIQUE
+            # BESU_GENESIS_FILE: /var/lib/besu/network-config/clique/genesis.json
+            # BESU_NODE_PRIVATE_KEY_FILE: /var/lib/besu/network-config/clique/nodeKey
     postgres:
         image: postgres:9.6
         environment:
