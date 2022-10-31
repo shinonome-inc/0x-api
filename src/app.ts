@@ -77,6 +77,7 @@ async function deploySamplerContractAsync(
         return sampler;
     } catch (err) {
         logger.error(`Failed to deploy ERC20BridgeSamplerContract on network ${chainId}: ${err}`);
+        console.log('err :>> ', err);
         throw err;
     }
 }
@@ -140,10 +141,10 @@ export async function getContractAddressesForNetworkOrThrowAsync(
     }
     // In a testnet where the environment does not support overrides
     // so we deploy the latest sampler
-    if (chainId === ChainId.Ganache) {
-        const sampler = await deploySamplerContractAsync(provider, chainId);
-        contractAddresses = { ...contractAddresses, erc20BridgeSampler: sampler.address };
-    }
+    // if (chainId === ChainId.Ganache) {
+    //     const sampler = await deploySamplerContractAsync(provider, chainId);
+    //     contractAddresses = { ...contractAddresses, erc20BridgeSampler: sampler.address };
+    // }
     // Set the global cached contractAddresses_
     contractAddresses_ = contractAddresses;
     return contractAddresses_;
