@@ -100,7 +100,7 @@ export async function getContractAddressesForNetworkOrThrowAsync(
     // @note we need to deploy the contract on amaterasu chain
     // @todo suport amaterasu chain
     // next line is derived from @0x/contract-addresses package
-    const AMATERASU_CHAIN_ID = process.env.AMATERASU_CHAIN_ID
+    const AMATERASU_CHAIN_ID = process.env.AMATERASU_CHAIN_ID;
     const EXCHANGE_PROXY_ADDRESS = process.env.EXCHANGE_PROXY_ADDRESS ?? NULL_ADDRESS;
     if (EXCHANGE_PROXY_ADDRESS === NULL_ADDRESS) {
         logger.warn(`Exchange Proxy address is not set, using ${NULL_ADDRESS}`);
@@ -109,40 +109,40 @@ export async function getContractAddressesForNetworkOrThrowAsync(
         logger.info(`contractAddresses are set to zero address`);
         throw Error(`AMATERASU_CHAIN_ID is undefined`);
     }
-    let contractAddresses: ContractAddresses
+    let contractAddresses: ContractAddresses;
     // chainId
     if ((chainId as any) == AMATERASU_CHAIN_ID) {
         contractAddresses = {
-            "zrxToken": "0x0000000000000000000000000000000000000000",
-            "etherToken": "0x0000000000000000000000000000000000000000",
-            "zeroExGovernor": "0x0000000000000000000000000000000000000000",
-            "zrxVault": "0x0000000000000000000000000000000000000000",
-            "staking": "0x0000000000000000000000000000000000000000",
-            "stakingProxy": "0x0000000000000000000000000000000000000000",
-            "erc20BridgeProxy": "0x0000000000000000000000000000000000000000",
-            "erc20BridgeSampler": "0x0000000000000000000000000000000000000000",
-            "exchangeProxyGovernor": "0x0000000000000000000000000000000000000000",
-            "exchangeProxy": "0x0000000000000000000000000000000000000000",
-            "exchangeProxyTransformerDeployer": "0x0000000000000000000000000000000000000000",
-            "exchangeProxyFlashWallet": "0x0000000000000000000000000000000000000000",
-            "exchangeProxyLiquidityProviderSandbox": "0x0000000000000000000000000000000000000000",
-            "zrxTreasury": "0x0000000000000000000000000000000000000000",
-            "transformers": {
-                "wethTransformer": "0x0000000000000000000000000000000000000000",
-                "payTakerTransformer": "0x0000000000000000000000000000000000000000",
-                "affiliateFeeTransformer": "0x0000000000000000000000000000000000000000",
-                "fillQuoteTransformer": "0x0000000000000000000000000000000000000000",
-                "positiveSlippageFeeTransformer": "0x0000000000000000000000000000000000000000"
-            }
-        }
+            zrxToken: '0x0000000000000000000000000000000000000000',
+            etherToken: '0x0000000000000000000000000000000000000000',
+            zeroExGovernor: '0x0000000000000000000000000000000000000000',
+            zrxVault: '0x0000000000000000000000000000000000000000',
+            staking: '0x0000000000000000000000000000000000000000',
+            stakingProxy: '0x0000000000000000000000000000000000000000',
+            erc20BridgeProxy: '0x0000000000000000000000000000000000000000',
+            erc20BridgeSampler: '0x0000000000000000000000000000000000000000',
+            exchangeProxyGovernor: '0x0000000000000000000000000000000000000000',
+            exchangeProxy: '0x0000000000000000000000000000000000000000',
+            exchangeProxyTransformerDeployer: '0x0000000000000000000000000000000000000000',
+            exchangeProxyFlashWallet: '0x0000000000000000000000000000000000000000',
+            exchangeProxyLiquidityProviderSandbox: '0x0000000000000000000000000000000000000000',
+            zrxTreasury: '0x0000000000000000000000000000000000000000',
+            transformers: {
+                wethTransformer: '0x0000000000000000000000000000000000000000',
+                payTakerTransformer: '0x0000000000000000000000000000000000000000',
+                affiliateFeeTransformer: '0x0000000000000000000000000000000000000000',
+                fillQuoteTransformer: '0x0000000000000000000000000000000000000000',
+                positiveSlippageFeeTransformer: '0x0000000000000000000000000000000000000000',
+            },
+        };
     } else {
         contractAddresses = getContractAddressesForChainOrThrow(chainId.toString() as any);
     }
     // In a testnet where the environment does not support overrides
     // so we deploy the latest sampler
     if (chainId === ChainId.Ganache) {
-        const sampler = await deploySamplerContractAsync(provider, chainId);
-        contractAddresses = { ...contractAddresses, erc20BridgeSampler: sampler.address };
+        // const sampler = await deploySamplerContractAsync(provider, chainId);
+        // contractAddresses = { ...contractAddresses, erc20BridgeSampler: sampler.address };
     }
     // Set the global cached contractAddresses_
     contractAddresses_ = contractAddresses;
