@@ -248,7 +248,7 @@ export const SLIPPAGE_MODEL_S3_FILE_VALID_INTERVAL_MS: number = ONE_HOUR_MS * 2;
 export const SLIPPAGE_MODEL_REFRESH_INTERVAL_MS: number = ONE_MINUTE_MS * 1;
 
 export const ORDER_WATCHER_URL = _.isEmpty(process.env.ORDER_WATCHER_URL)
-    ? 'http://127.0.0.1:8080'
+    ? 'http://127.0.0.1:8008'
     : assertEnvVarType('ORDER_WATCHER_URL', process.env.ORDER_WATCHER_URL, EnvVarType.Url);
 
 export const ORDER_WATCHER_KAFKA_TOPIC = _.isEmpty(process.env.ORDER_WATCHER_KAFKA_TOPIC)
@@ -478,8 +478,9 @@ const EXCLUDED_SOURCES = (() => {
         case ChainId.ArbitrumRinkeby:
         case ChainId.Arbitrum:
             return [ERC20BridgeSource.MultiBridge, ERC20BridgeSource.Native];
-        default:
-            throw new Error(`Excluded sources not specified for ${CHAIN_ID}`);
+        /// XXX: comment out
+        // default:
+        //     throw new Error(`Excluded sources not specified for ${CHAIN_ID}`);
     }
 })();
 
@@ -586,6 +587,10 @@ export const SAMPLER_OVERRIDES: SamplerOverrides | undefined = (() => {
             return undefined;
     }
 })();
+
+export const LOG_CSV_PATH = process.env.LOG_CSV_PATH || '../signedOrders.csv'
+
+export const ENABLE_LOG_CSV = process.env.ENABLE_LOG_CSV?.toLowerCase() == 'true' || true
 
 let SWAP_QUOTER_RFQT_OPTS: SwapQuoterRfqOpts = {
     integratorsWhitelist: RFQT_INTEGRATORS,
