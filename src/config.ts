@@ -588,6 +588,10 @@ export const SAMPLER_OVERRIDES: SamplerOverrides | undefined = (() => {
     }
 })();
 
+export const LOG_CSV_PATH = process.env.LOG_CSV_PATH || '../signedOrders.csv'
+
+export const ENABLE_LOG_CSV = process.env.ENABLE_LOG_CSV?.toLowerCase() == 'true' || true
+
 let SWAP_QUOTER_RFQT_OPTS: SwapQuoterRfqOpts = {
     integratorsWhitelist: RFQT_INTEGRATORS,
     txOriginBlacklist: RFQT_TX_ORIGIN_BLACKLIST,
