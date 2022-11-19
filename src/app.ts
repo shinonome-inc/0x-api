@@ -223,17 +223,17 @@ export async function getDefaultAppDependenciesAsync(
             }),
         );
         const slippageModelManager = await createAndInitializeSlippageModelManagerAsync(s3Client);
-        swapService = new SwapService(
-            new AssetSwapperOrderbook(orderBookService),
-            provider,
-            contractAddresses,
-            rfqClient,
-            rfqtFirmQuoteValidator,
-            rfqDynamicBlacklist,
-            pairsManager,
-            slippageModelManager,
-        );
-        metaTransactionService = createMetaTxnServiceFromSwapService(swapService, contractAddresses);
+        // swapService = new SwapService(
+        //     new AssetSwapperOrderbook(orderBookService),
+        //     provider,
+        //     contractAddresses,
+        //     rfqClient,
+        //     rfqtFirmQuoteValidator,
+        //     rfqDynamicBlacklist,
+        //     pairsManager,
+        //     slippageModelManager,
+        // );
+        // metaTransactionService = createMetaTxnServiceFromSwapService(swapService, contractAddresses);
     } catch (err) {
         logger.error(err.stack);
     }
